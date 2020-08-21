@@ -15,11 +15,13 @@ import edu.wpi.first.wpilibj.interfaces.Potentiometer;
 import edu.wpi.first.wpilibj.smartdashboard.SendableRegistry;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.PIDSubsystem;
+import edu.wpi.first.wpilibj.simulation.Mechanism2D;
 import frc.robot.Constants;
 
 public class ArmSubsystem extends PIDSubsystem {
   private final SpeedController motor;
   private final Potentiometer potentiometer;
+  private static final Mechanism2D MECHANISM2D = new Mechanism2D();
 
   /**
    * Creates a new Drive.
@@ -47,6 +49,7 @@ public class ArmSubsystem extends PIDSubsystem {
     super.periodic();
 
     SmartDashboard.putNumber("Arm Angle", getMeasurement());
+    MECHANISM2D.setLigamentAngle("arm/" + String.valueOf(Constants.ArmConstants.kMotorPort), (float) getMeasurement());
   }
 
   @Override

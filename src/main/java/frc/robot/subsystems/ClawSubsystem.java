@@ -9,10 +9,12 @@ package frc.robot.subsystems;
 
 import edu.wpi.first.wpilibj.Servo;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import edu.wpi.first.wpilibj.simulation.Mechanism2D;
 import frc.robot.Constants;
 
 public class ClawSubsystem extends SubsystemBase {
   private final Servo servo;
+  private static final Mechanism2D MECHANISM2D = new edu.wpi.first.wpilibj.simulation.Mechanism2D();
 
   /**
    * Create a new claw subsystem.
@@ -26,6 +28,7 @@ public class ClawSubsystem extends SubsystemBase {
    */
   public void open() {
     servo.set(Constants.ClawConstants.kServoOpen);
+    MECHANISM2D.setLigamentAngle("claw/mainLink", 60);
   }
 
   /**
@@ -33,5 +36,6 @@ public class ClawSubsystem extends SubsystemBase {
    */
   public void close() {
     servo.set(Constants.ClawConstants.kServoClosed);
+    MECHANISM2D.setLigamentAngle("claw/mainLink", 0);
   }
 }
